@@ -4,7 +4,7 @@ import org.apache.catalina._
 import startup.Tomcat
 import core.AprLifecycleListener
 import loader.WebappLoader
-
+	
 object EmbedTomcat {
 	def main(args: Array[String]) {
 		val appBase = args(0);
@@ -25,6 +25,7 @@ object EmbedTomcat {
 
 		val context = tomcat.addWebapp(contextPath, appBase)
 		val loader = new WebappLoader(getClass.getClassLoader)
+		loader.setLoaderClass("org.apache.catalina.loader.SbtWebappClassLoader")
 		context.setLoader(loader)
 		tomcat.start()
 	}
